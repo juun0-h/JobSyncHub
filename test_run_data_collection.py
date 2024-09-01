@@ -9,6 +9,13 @@ from src.utils.config import Config
 KST = pendulum.timezone("Asia/Seoul")
 
 def fetch_and_upload_data(connector_class):
+    """
+    특정 connector의 data를 가져와서 S3에 bucket에 upload
+
+    -----
+    Param:
+        connector_class (class): connector
+    """
     connector = connector_class()
     data = connector.fetch_data()
     date_str = pendulum.now(KST).format('YYYY-MM-DD')
