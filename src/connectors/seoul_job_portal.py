@@ -19,14 +19,18 @@ class SeoulJobPortalConnector(BaseConnector):
         self.base_url = Config.SEOUL_URL
     
     def fetch_data(self) -> List[Dict[str, Any]]:
-        params = {
-            'KEY': self.api_key,
-            'TYPE': 'json',
-            'SERVICE': 'GetJobInfo',
-            # 'START_INDEX': 1,
-            # 'END_INDEX': 1000
-        }
-        response = requests.get(self.base_url, params=params)
+        # params = {
+        #     'KEY': self.api_key,
+        #     'TYPE': 'json',
+        #     'SERVICE': 'GetJobInfo',
+        #     'START_INDEX': 1,
+        #     'END_INDEX': 1000
+        # }
+        # response = requests.get(self.base_url, params=params)
+        START_INDEX=1
+        END_INDEX=1000
+        url = f"{self.base_url}/{self.api_key}/json/GetJobInfo/{START_INDEX}/{END_INDEX}/"
+        response = requests.get(url)
         response.raise_for_status()
         data = response.json()['GetJobInfo']['row']
 
