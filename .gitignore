@@ -5,3 +5,5 @@ src/utils/__pycache__
 src/connector/__pycache__
 *.py[cod]
 *$py.class
+.idea
+.DS_Store
