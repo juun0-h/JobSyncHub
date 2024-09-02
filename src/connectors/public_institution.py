@@ -15,8 +15,8 @@ class PublicInstitutionConnector(BaseConnector):
             api_key (str): Public Institution API key
             base_url (str): Public Institution API의 기본 URL
         """
-        self.api_key = Config.PUBLIC_INSTITUTION_API_KEY
-        self.base_url = Config.PUBLIC_INSTITUTION_URL
+        self.api_key = Config.PUBLICINSTITUTIONCONNECTOR_API_KEY
+        self.base_url = Config.PUBLICINSTITUTIONCONNECTOR_URL
 
     def fetch_data(self) -> List[Dict[str, Any]]:
         params = {

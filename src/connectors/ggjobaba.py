@@ -15,8 +15,8 @@ class GGJobabaConnector(BaseConnector):
             api_key (str): GGJobaba API key
             base_url (str): GGJobaba API의 기본 URL
         """
-        self.api_key = Config.GYEONGGI_API_KEY
-        self.base_url = Config.GYEONGGI_URL
+        self.api_key = Config.GGJOBABACONNECTOR_API_KEY
+        self.base_url = Config.GGJOBABACONNECTOR_URL
 
     def fetch_data(self) -> List[Dict[str, Any]]:
         params = {

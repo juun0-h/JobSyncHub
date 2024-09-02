@@ -26,7 +26,7 @@ def fetch_and_upload_data(connector_class):
     connector = connector_class()
     data = connector.fetch_data()
     date_str = pendulum.now(KST).format('YYYY-MM-DD')
-    filename = f"{connector_class.__name__}_{date_str}.json"
+    filename = f"{connector_class.__name__}/{date_str}.json"
     
     config = {
         "api_key": getattr(Config, f"{connector_class.__name__.upper()}_API_KEY"),

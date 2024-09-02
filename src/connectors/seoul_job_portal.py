@@ -15,8 +15,8 @@ class SeoulJobPortalConnector(BaseConnector):
             api_key (str): Seoul Job Portal API key
             base_url (str): Seoul Job Portal API의 기본 URL
         """
-        self.api_key = Config.SEOUL_API_KEY
-        self.base_url = Config.SEOUL_URL
+        self.api_key = Config.SEOULJOBPORTALCONNECTOR_API_KEY
+        self.base_url = Config.SEOULJOBPORTALCONNECTOR_URL
     
     def fetch_data(self) -> List[Dict[str, Any]]:
         # params = {

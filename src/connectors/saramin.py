@@ -15,8 +15,8 @@ class SaraminConnector(BaseConnector):
             api_key (str): Saramin API key
             base_url (str): Saramin API의 기본 URL
         """
-        self.api_key = Config.SARAMIN_API_KEY
-        self.base_url = Config.SARAMIN_URL
+        self.api_key = Config.SARAMINCONNECTOR_API_KEY
+        self.base_url = Config.SARAMINCONNECTOR_URL
 
     def fetch_data(self) -> List[Dict[str, Any]]:
         params = {
