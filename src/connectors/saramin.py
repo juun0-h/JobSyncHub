@@ -25,11 +25,11 @@ class SaraminConnector(BaseConnector):
         }
         response = requests.get(self.base_url, params=params)
         response.raise_for_status()
-        data = response.json()['jobs']['job']
+        data: list = response.json()['jobs']['job']
 
         # tmp for testing total count
-        # total = response['jobs']['total']
-        # print(f"total: {total}")
+        total = response.json()['jobs']['total']
+        print(f"total: {total}")
 
         for item in data:
             for date_field in self.get_date_fields():

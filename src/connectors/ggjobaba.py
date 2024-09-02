@@ -29,8 +29,8 @@ class GGJobabaConnector(BaseConnector):
         data = response.json()['GGJOBABARECRUSTM'][1]['row']
 
         # tmp for testing total count
-        # total = response['GGJOBABARECRUSTM'][0]['head'][0]['list_total_count']
-        # print(f"total: {total}")
+        total = response.json()['GGJOBABARECRUSTM'][0]['head'][0]['list_total_count']
+        print(f"total: {total}")
 
         for item in data:
             convert_dates_in_dict(item, self.get_date_fields())

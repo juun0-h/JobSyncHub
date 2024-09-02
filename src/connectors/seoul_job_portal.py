@@ -33,8 +33,8 @@ class SeoulJobPortalConnector(BaseConnector):
         data = response.json()['GetJobInfo']['row']
 
         # tmp for testing total count
-        # total = response['GetJobInfo']['list_total_count']
-        # print(f"total: {total}")
+        total = response.json()['GetJobInfo']['list_total_count']
+        print(f"total: {total}")
 
         for item in data:
             convert_dates_in_dict(item, ['JO_REG_DT'])

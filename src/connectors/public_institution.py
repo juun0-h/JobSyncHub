@@ -30,7 +30,7 @@ class PublicInstitutionConnector(BaseConnector):
         data = response.json()['result']
 
         # tmp for testing total count
-        # print(f"total: {data.get('total', 0)}")
+        print(f"totalCount: {response.json()['totalCount']}")
 
 
         for item in data:
