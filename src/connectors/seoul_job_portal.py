@@ -40,6 +40,7 @@ class SeoulJobPortalConnector(BaseConnector):
             convert_dates_in_dict(item, ['JO_REG_DT'])
             if 'RCEPT_CLOS_NM' in item:
                 item['RCEPT_CLOS_NM'] = self.extract_date(item['RCEPT_CLOS_NM'])
+            item['URL'] = self.make_url(item['JO_REQST_NO'])    # 채용공고 상세 페이지 URL 추가
 
         return data
     
@@ -59,7 +60,22 @@ class SeoulJobPortalConnector(BaseConnector):
         if match:
             return match.group(1)
         return date_str
-    
+
+    def make_url(self, id: str) -> str:
+        """
+        서울시 채용정보 상세 페이지 URL 생성
+
+        ------
+        Params:
+            id (str): 채용공고 고유 ID(JO_REQST_NO)
+
+        -------
+        returns:
+            str: 채용공고 상세 페이지 URL
+        """
+        prefix = 'https://job.seoul.go.kr/www/job_offer_info/JobOfferInfo.do?method=selectJobOfferInfoView&joReqstNo='
+        return f"{prefix}{id}"
+
     def get_date_fields(self) -> List[str]:
         return ['JO_REG_DT', 'RCEPT_CLOS_NM']
     
