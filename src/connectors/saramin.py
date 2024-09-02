@@ -27,6 +27,10 @@ class SaraminConnector(BaseConnector):
         response.raise_for_status()
         data = response.json()['jobs']['job']
 
+        # tmp for testing total count
+        # total = response['jobs']['total']
+        # print(f"total: {total}")
+
         for item in data:
             for date_field in self.get_date_fields():
                 if date_field in item:

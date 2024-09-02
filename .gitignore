@@ -1,6 +1,7 @@
 venv
 .env
 tests/
-__pycache__/
+src/utils/__pycache__
+src/connector/__pycache__
 *.py[cod]
 *$py.class

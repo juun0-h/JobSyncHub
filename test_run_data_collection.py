@@ -25,7 +25,7 @@ def fetch_and_upload_data(connector_class):
         "api_key": getattr(Config, f"{connector_class.__name__.upper()}_API_KEY"),
         "url": getattr(Config, f"{connector_class.__name__.upper()}_URL"),
         "source": connector_class.__name__,
-        "last_updated": pendulum.now(KST).isoformat()
+        "last_updated": date_str
     }
     
     content = {

@@ -29,6 +29,10 @@ class PublicInstitutionConnector(BaseConnector):
         response.raise_for_status()
         data = response.json()['result']
 
+        # tmp for testing total count
+        # print(f"total: {data.get('total', 0)}")
+
+
         for item in data:
             convert_dates_in_dict(item, self.get_date_fields())
 
