@@ -20,25 +20,10 @@ def fetch_and_upload_data(connector_class):
     data = connector.fetch_data()
     date_str = pendulum.now(KST).format('YYYY-MM-DD')
     filename = f"{connector_class.__name__}/{date_str}.json"
-    
-    if connector_class.__name__ == "GGJobabaConnector":
-        api_key = Config.GYEONGGI_API_KEY
-        url = Config.GYEONGGI_URL
-    elif connector_class.__name__ == "SeoulJobPortalConnector":
-        api_key = Config.SEOUL_API_KEY
-        url = Config.SEOUL_URL
-    elif connector_class.__name__ == "PublicInstitutionConnector":
-        api_key = Config.PUBLIC_INSTITUTION_API_KEY
-        url = Config.PUBLIC_INSTITUTION_URL
-    elif connector_class.__name__ == "SaraminConnector":
-        api_key = Config.SARAMIN_API_KEY
-        url = Config.SARAMIN_URL
-    else:
-        raise ValueError(f"Unknown connector class: {connector_class.__name__}")
-    
+
     config = {
-        "api_key": api_key,
-        "url": url,
+        "api_key": getattr(Config, f"{connector_class.__name__.upper()}_API_KEY"),
+        "url": getattr(Config, f"{connector_class.__name__.upper()}_URL"),
         "source": connector_class.__name__,
         "last_updated": pendulum.now(KST).isoformat()
     }
