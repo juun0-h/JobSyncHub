@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: pass_member_service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/no_auth/**
+          filters:
+            - StripPrefix=1
+        - id: member_service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/member/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
+        - id: job_service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/job/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
