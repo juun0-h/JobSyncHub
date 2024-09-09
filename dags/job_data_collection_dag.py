@@ -25,7 +25,7 @@ default_args = {
 def fetch_and_upload_data(connector_class):
     connector = connector_class()
     data = connector.fetch_data()
-    date_str = pendulum.now(KST).format('YYYY-MM-DD')
+    date_str = pendulum.now(KST).format('YYYY-MM-DD HH:mm:ss')
     filename = f"{connector_class.__name__}/{date_str}.json"
     
     config = {
@@ -38,20 +38,30 @@ def fetch_and_upload_data(connector_class):
     
     upload_to_s3(data, config, filename)
 
+with DAG(
+    'saramin_data_collection',
+    default_args=default_args,
+    description='Collect job data from Saramin (Mon-Fri, every hour from 9 AM to midnight KST)',
+    schedule_interval=pendulum.cron('0 9-23 * * 1-5', tz=KST),
+    start_date=pendulum.datetime(2024, 9, 1, tz=KST),
+    catchup=True,
+) as saramin_dag:
+
+    fetch_and_upload_data.override(task_id='fetch_and_upload_Saramin')(SaraminConnector)
+
 # 월-금 오후 6시 (한국 시간)에 실행되는 DAG
 with DAG(
     'job_data_collection_weekday',
     default_args=default_args,
-    description='Collect job data from Seoul, Public Institution, and Saramin (Mon-Fri at 6 PM KST)',
+    description='Collect job data from Seoul and Public Institution (Mon-Fri at 6 PM KST)',
     schedule_interval=pendulum.cron('0 18 * * 1-5', tz=KST),
-    start_date=pendulum.datetime(2024, 1, 1, tz=KST),
-    catchup=False,
+    start_date=pendulum.datetime(2024, 9, 1, tz=KST),
+    catchup=True,
 ) as weekday_dag:
 
     weekday_connectors = [
         SeoulJobPortalConnector,
-        PublicInstitutionConnector,
-        SaraminConnector
+        PublicInstitutionConnector
     ]
 
     for connector_class in weekday_connectors:
@@ -63,8 +73,8 @@ with DAG(
     default_args=default_args,
     description='Collect job data from GGJobaba (Every Friday at 6 PM KST)',
     schedule_interval=pendulum.cron('0 18 * * 5', tz=KST),
-    start_date=pendulum.datetime(2024, 1, 1, tz=KST),
-    catchup=False,
+    start_date=pendulum.datetime(2024, 9, 1, tz=KST),
+    catchup=True,
 ) as friday_dag:
 
     fetch_and_upload_data.override(task_id='fetch_and_upload_GGJobaba')(GGJobabaConnector)

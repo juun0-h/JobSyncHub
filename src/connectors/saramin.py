@@ -21,11 +21,13 @@ class SaraminConnector(BaseConnector):
     def fetch_data(self) -> List[Dict[str, Any]]:
         params = {
             'access-key': self.api_key,
-            'count': 110
+            'count': 110,
+            'job_mid_cd': 2,
+            # 'sort': 'rc'
         }
         response = requests.get(self.base_url, params=params)
         response.raise_for_status()
-        data: list = response.json()['jobs']['job']
+        data = response.json()['jobs']['job']
 
         # tmp for testing total count
         total = response.json()['jobs']['total']
@@ -43,7 +45,7 @@ class SaraminConnector(BaseConnector):
         return data
 
     def get_date_fields(self) -> List[str]:
-        return ['opening-timestamp', 'expiration-timestamp']
+        return ['posting-timestamp', 'modification-timestamp', 'opening-timestamp', 'expiration-timestamp']
 
     @property
     def source_name(self) -> str:
