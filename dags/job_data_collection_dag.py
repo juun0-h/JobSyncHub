@@ -46,7 +46,8 @@ with DAG(
     start_date=pendulum.datetime(2024, 9, 1, tz=KST),
     catchup=True,
 ) as saramin_dag:
-
+    
+    # if pendulum.now(KST).hour == 9:
     fetch_and_upload_data.override(task_id='fetch_and_upload_Saramin')(SaraminConnector)
 
 # 월-금 오후 6시 (한국 시간)에 실행되는 DAG

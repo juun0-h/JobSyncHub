@@ -14,7 +14,8 @@ def test_connector(connector_class):
     connector = connector_class()
     print(f"\nTesting {connector_class.__name__}:")
     try:
-        data = connector.fetch_data()
+        header, data = connector.fetch_data_and_integrate_date_format()
+        print(f"Total data: {header[0]}")
         print(f"Successfully fetched {len(data)} items.")
         if data:
             print("Sample data:")

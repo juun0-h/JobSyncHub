@@ -1,7 +1,6 @@
 import requests, re
 from .base import BaseConnector
 from ..utils.config import Config
-from typing import List, Dict, Any
 from ..utils.helpers import convert_dates_in_dict, convert_date_format
 
 class SeoulJobPortalConnector(BaseConnector):
@@ -18,7 +17,7 @@ class SeoulJobPortalConnector(BaseConnector):
         self.api_key = Config.SEOULJOBPORTALCONNECTOR_API_KEY
         self.base_url = Config.SEOULJOBPORTALCONNECTOR_URL
     
-    def fetch_data(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> tuple[list[int], list[dict[str, any]]]:
         params = {
             'KEY': self.api_key,
             'TYPE': 'json',
@@ -30,11 +29,9 @@ class SeoulJobPortalConnector(BaseConnector):
         url = f"{self.base_url}/{self.api_key}/json/GetJobInfo/{params['START_INDEX']}/{params['END_INDEX']}/"
         response = requests.get(url)
         response.raise_for_status()
-        data = response.json()['GetJobInfo']['row']
 
-        # tmp for testing total count
-        total = response.json()['GetJobInfo']['list_total_count']
-        print(f"total: {total}")
+        header = [response.json()['GetJobInfo']['list_total_count']]
+        data = response.json()['GetJobInfo']['row']
 
         for item in data:
             convert_dates_in_dict(item, ['JO_REG_DT'])
@@ -42,7 +39,7 @@ class SeoulJobPortalConnector(BaseConnector):
                 item['RCEPT_CLOS_NM'] = self.extract_date(item['RCEPT_CLOS_NM'])
             item['URL'] = self.make_url(item['JO_REQST_NO'])    # 채용공고 상세 페이지 URL 추가
 
-        return data
+        return header, data
     
     def extract_date(self, date_str: str) -> str:
         """
@@ -76,7 +73,7 @@ class SeoulJobPortalConnector(BaseConnector):
         prefix = 'https://job.seoul.go.kr/www/job_offer_info/JobOfferInfo.do?method=selectJobOfferInfoView&joReqstNo='
         return f"{prefix}{id}"
 
-    def get_date_fields(self) -> List[str]:
+    def get_date_fields(self) -> list[str]:
         return ['JO_REG_DT', 'RCEPT_CLOS_NM']
     
     @property

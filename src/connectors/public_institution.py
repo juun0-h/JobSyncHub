@@ -1,7 +1,6 @@
 import requests
 from .base import BaseConnector
 from ..utils.config import Config
-from typing import List, Dict, Any
 from ..utils.helpers import convert_dates_in_dict
 
 class PublicInstitutionConnector(BaseConnector):
@@ -18,7 +17,7 @@ class PublicInstitutionConnector(BaseConnector):
         self.api_key = Config.PUBLICINSTITUTIONCONNECTOR_API_KEY
         self.base_url = Config.PUBLICINSTITUTIONCONNECTOR_URL
 
-    def fetch_data(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> tuple[list[int], list[dict[str, any]]]:
         params = {
             'serviceKey': self.api_key,
             'type': 'json',
@@ -27,18 +26,16 @@ class PublicInstitutionConnector(BaseConnector):
         }
         response = requests.get(self.base_url, params=params)
         response.raise_for_status()
+
+        header = [response.json()['totalCount']]
         data = response.json()['result']
-
-        # tmp for testing total count
-        print(f"totalCount: {response.json()['totalCount']}")
-
 
         for item in data:
             convert_dates_in_dict(item, self.get_date_fields())
 
-        return data
+        return header, data
     
-    def get_date_fields(self) -> List[str]:
+    def get_date_fields(self) -> list[str]:
         return ['pbancBgngYmd', 'pbancEndYmd']
     
     @property

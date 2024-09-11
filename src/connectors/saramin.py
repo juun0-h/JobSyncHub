@@ -1,7 +1,6 @@
 import requests
 from .base import BaseConnector
 from ..utils.config import Config
-from typing import List, Dict, Any
 import pendulum
 from ..utils.helpers import convert_date_format
 
@@ -18,7 +17,7 @@ class SaraminConnector(BaseConnector):
         self.api_key = Config.SARAMINCONNECTOR_API_KEY
         self.base_url = Config.SARAMINCONNECTOR_URL
 
-    def fetch_data(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> tuple[list[int, int, str], list[dict[str, any]]]:
         params = {
             'access-key': self.api_key,
             'count': 110,
@@ -27,11 +26,13 @@ class SaraminConnector(BaseConnector):
         }
         response = requests.get(self.base_url, params=params)
         response.raise_for_status()
-        data = response.json()['jobs']['job']
 
-        # tmp for testing total count
-        total = response.json()['jobs']['total']
-        print(f"total: {total}")
+        header = [response.json()['jobs']['total'],
+                  response.json()['jobs']['count'],
+                  response.json()['jobs']['start'],
+                  ]
+
+        data = response.json()['jobs']['job']
 
         for item in data:
             for date_field in self.get_date_fields():
@@ -42,9 +43,9 @@ class SaraminConnector(BaseConnector):
                         input_formats=['YYYYMMDD']
                     )
 
-        return data
+        return header, data
 
-    def get_date_fields(self) -> List[str]:
+    def get_date_fields(self) -> list[str]:
         return ['posting-timestamp', 'modification-timestamp', 'opening-timestamp', 'expiration-timestamp']
 
     @property

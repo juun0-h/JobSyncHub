@@ -3,9 +3,9 @@ from typing import List, Dict, Any
 
 class BaseConnector(ABC):
     @abstractmethod
-    def fetch_data(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> List[Dict[str, Any]]:
         """
-        API에서 data를 가져오고 날짜 형식 변환 (YYYY-MM-DD)
+        API에서 header 및 data를 가져오고 날짜 형식 변환 (YYYY-MM-DD)
         
         Returns:
             API에서 가져온 data list

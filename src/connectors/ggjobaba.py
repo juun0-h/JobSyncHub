@@ -1,7 +1,6 @@
 import requests
 from .base import BaseConnector
 from ..utils.config import Config
-from typing import List, Dict, Any
 from ..utils.helpers import convert_dates_in_dict
 
 class GGJobabaConnector(BaseConnector):
@@ -18,7 +17,7 @@ class GGJobabaConnector(BaseConnector):
         self.api_key = Config.GGJOBABACONNECTOR_API_KEY
         self.base_url = Config.GGJOBABACONNECTOR_URL
 
-    def fetch_data(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> tuple[list[int], list[dict[str, any]]]:
         params = {
             'KEY': self.api_key,
             'Type': 'json',
@@ -26,18 +25,16 @@ class GGJobabaConnector(BaseConnector):
         }
         response = requests.get(self.base_url, params=params)
         response.raise_for_status()
-        data = response.json()['GGJOBABARECRUSTM'][1]['row']
 
-        # tmp for testing total count
-        total = response.json()['GGJOBABARECRUSTM'][0]['head'][0]['list_total_count']
-        print(f"total: {total}")
+        header = [response.json()['GGJOBABARECRUSTM'][0]['head'][0]['list_total_count']]
+        data = response.json()['GGJOBABARECRUSTM'][1]['row']
 
         for item in data:
             convert_dates_in_dict(item, self.get_date_fields())
 
-        return data
+        return header, data
 
-    def get_date_fields(self) -> List[str]:
+    def get_date_fields(self) -> list[str]:
         return ['RCPT_BGNG_DE', 'RCPT_END_DE']
 
     @property
