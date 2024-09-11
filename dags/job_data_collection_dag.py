@@ -24,7 +24,7 @@ default_args = {
 @task
 def fetch_and_upload_data(connector_class):
     connector = connector_class()
-    data = connector.fetch_data()
+    header, data = connector.fetch_data_and_integrate_date_format()
     date_str = pendulum.now(KST).format('YYYY-MM-DD HH:mm:ss')
     filename = f"{connector_class.__name__}/{date_str}.json"
     
