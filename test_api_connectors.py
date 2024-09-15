@@ -1,5 +1,4 @@
 from src.connectors.ggjobaba import GGJobabaConnector
-from src.connectors.seoul_job_portal import SeoulJobPortalConnector
 from src.connectors.public_institution import PublicInstitutionConnector
 from src.connectors.saramin import SaraminConnector
 
@@ -28,7 +27,6 @@ def test_connector(connector_class):
 if __name__ == "__main__":
     connectors = [
         GGJobabaConnector,
-        SeoulJobPortalConnector,
         PublicInstitutionConnector,
         SaraminConnector
     ]

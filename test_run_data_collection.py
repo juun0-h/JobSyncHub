@@ -1,6 +1,5 @@
 import pendulum
 from src.connectors.ggjobaba import GGJobabaConnector
-from src.connectors.seoul_job_portal import SeoulJobPortalConnector
 from src.connectors.public_institution import PublicInstitutionConnector
 from src.connectors.saramin import SaraminConnector
 from src.utils.s3_utils import upload_to_s3
@@ -39,7 +38,6 @@ def fetch_and_upload_data(connector_class):
 if __name__ == "__main__":
     connectors = [
         GGJobabaConnector,
-        SeoulJobPortalConnector,
         PublicInstitutionConnector,
         SaraminConnector
     ]

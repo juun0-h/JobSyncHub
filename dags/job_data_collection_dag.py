@@ -47,26 +47,19 @@ with DAG(
     catchup=True,
 ) as saramin_dag:
     
-    # if pendulum.now(KST).hour == 9:
     fetch_and_upload_data.override(task_id='fetch_and_upload_Saramin')(SaraminConnector)
 
 # 월-금 오후 6시 (한국 시간)에 실행되는 DAG
 with DAG(
     'job_data_collection_weekday',
     default_args=default_args,
-    description='Collect job data from Seoul and Public Institution (Mon-Fri at 6 PM KST)',
+    description='Collect job data from Public Institution (Mon-Fri at 6 PM KST)',
     schedule_interval=pendulum.cron('0 18 * * 1-5', tz=KST),
     start_date=pendulum.datetime(2024, 9, 1, tz=KST),
     catchup=True,
 ) as weekday_dag:
 
-    weekday_connectors = [
-        SeoulJobPortalConnector,
-        PublicInstitutionConnector
-    ]
-
-    for connector_class in weekday_connectors:
-        fetch_and_upload_data.override(task_id=f'fetch_and_upload_{connector_class.__name__}')(connector_class)
+    fetch_and_upload_data.override(task_id='fetch_and_upload_PublicInstitution')(PublicInstitutionConnector)
 
 # 매주 금요일 오후 6시 (한국 시간)에 실행되는 DAG
 with DAG(
