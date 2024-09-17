@@ -67,7 +67,7 @@ class JumpItConnector(BaseConnector):
                 # 마감일 추출
                 try:
                     deadline = self.driver.find_element(self.deadline_html[0], self.deadline_html[1]).text
-                    job_info['deadline'] = deadline
+                    job_info['deadline'] = self.convert_deadline_format(deadline, r"\d{4}\-\d{2}\-\d{2}", '%Y-%m-%d')
                 except:
                     job_info['deadline'] = None
                     print(f"[JumpIt] deadline 필드 추출 실패: {job_link}")
