@@ -50,8 +50,9 @@ class BaseConnector(ABC):
         """
         if re.match(pattern, deadline):
             try:
+                # 문자열 시작과 끝 공백 제거
                 deadline = deadline.strip()
-                # 'YYYY.MM.DD' 형식으로 날짜 파싱
+                # 주어진 날짜 문자열을 지정된 형식(format)에 맞춰 datetime 객체로 변환
                 dt = datetime.datetime.strptime(deadline, format)
                 # 23:59 시간 설정 후 한국 시간으로 변경
                 dt = dt.replace(hour=23, minute=59, second=0) + datetime.timedelta(hours=9)
