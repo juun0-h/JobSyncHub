@@ -3,7 +3,7 @@ package api.service.MemberService.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author jinhyeok
  */
-@Getter
+@Data
 @Builder
 @Entity
 @Table(name = "member")
