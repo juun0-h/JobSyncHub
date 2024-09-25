@@ -20,4 +20,5 @@ public class SignUpRequestDto {
     private String name;
     private String picture;
     private String role;
+    private boolean emailVerified;
 }

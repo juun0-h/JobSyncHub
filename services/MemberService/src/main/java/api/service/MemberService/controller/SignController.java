@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 회원가입 요청을 처리하는 컨트롤러이다.
@@ -36,7 +33,7 @@ public class SignController {
      * @return ResponseEntity<SignUpResponseDto> 회원가입 처리 결과를 담은 응답 DTO와 HTTP 상태 코드 반환
      */
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponseDto> signUp(@Validated @RequestBody SignUpRequestDto signUpRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<SignUpResponseDto> signUp(@Validated @RequestBody SignUpRequestDto signUpRequestDto, BindingResult bindingResult, @RequestHeader("Authorization") String bearer) {
 
         if(bindingResult.hasErrors()){
             //400 에러 반환
@@ -46,9 +43,26 @@ public class SignController {
                     HttpStatus.BAD_REQUEST);
         }
 
+        // 회원가입 이메일 인증 여부 검사
+        String token = bearer.substring(7);
+        if(!signUpRequestDto.isEmailVerified()) {
+            // 이메일 인증이 완료되지 않은 경우 401 (Unauthorized) 응답 반환
+            return new ResponseEntity<>(SignUpResponseDto.builder()
+                    .statusCode(HttpStatus.UNAUTHORIZED.value())
+                    .message("email not verified").build(),
+                    HttpStatus.UNAUTHORIZED);
+        }
+        // 회원가입 토큰 검증
+        if (!signService.validateSignUpToken(token)) {
+            // 토큰이 유효하지 않은 경우 401 (Unauthorized) 응답 반환
+            return new ResponseEntity<>(SignUpResponseDto.builder()
+                    .statusCode(HttpStatus.UNAUTHORIZED.value())
+                    .message("invalid token").build(),
+                    HttpStatus.UNAUTHORIZED);
+        }
+
         // 회원가입 처리
         Member member = signService.signupMember(signUpRequestDto);
-
         // 회원가입 성공 응답 반환
         return new ResponseEntity<>(SignUpResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
@@ -61,7 +75,7 @@ public class SignController {
      * IllegalArgumentException 예외가 발생하면 400 (Bad Request) 응답을 반환한다.
      * 동일한 이메일로 가입된 회원이 존재하는 경우 IllegalArgumentException 예외가 발생하는데 이를 처리한다.
      *
-     * @param ex
+     * @param ex IllegalArgumentException 예외 객체
      * @return ResponseEntity<SignUpResponseDto> 400 (Bad Request) 응답
      */
     @ExceptionHandler(IllegalArgumentException.class)

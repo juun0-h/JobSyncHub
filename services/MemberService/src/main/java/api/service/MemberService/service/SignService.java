@@ -4,11 +4,19 @@ import api.service.MemberService.dto.signup.SignUpRequestDto;
 import api.service.MemberService.entity.Member;
 import api.service.MemberService.entity.Role;
 import api.service.MemberService.repository.MemberRepository;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.SignatureException;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 
 /**
  * 사용자의 회원가입 요청을 처리하는 서비스 클래스이다.
@@ -21,6 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SignService {
 
+    @Value("${jwt.signup.secret-key}")
+    private String signUpSecretKey;
+    private Key signature;
+    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -28,7 +41,7 @@ public class SignService {
      * 사용자의 회원가입 요청을 처리하는 메서드이다.
      * 입력된 회원 정보를 저장하고 저장된 회원 정보를 반환한다.
      *
-     * @param signUpRequestDto
+     * @param signUpRequestDto 회원가입 요청 정보를 담은 DTO
      * @return Member 새로 회원가입한 회원 정보 반환
      * @throws IllegalArgumentException 이미 가입된 회원인 경우 예외 발생
      */
@@ -52,4 +65,31 @@ public class SignService {
         return memberRepository.save(member);
     }
 
+    public boolean validateSignUpToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(signature).build().parseClaimsJws(token);
+        } catch (ExpiredJwtException e) {
+            log.error("JWT 토큰이 만료됨: {}", e.getMessage());
+            return false;
+        } catch (UnsupportedJwtException e) {
+            log.error("JWT 형식이 잘못됨 {}", e.getMessage());
+            return false;
+        } catch (MalformedJwtException e) {
+            log.error("JWT가 올바르게 구성되지 않음: {}", e.getMessage());
+            return false;
+        } catch (SignatureException e) {
+            log.error("JWT 서명이 잘못됨: {}", e.getMessage());
+            return false;
+        } catch (JwtException e) {
+            log.error("JWT 토큰이 잘못됨: {}", e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    @PostConstruct
+    public void initSignature() throws Exception {
+        byte[] keyByte = Decoders.BASE64.decode(signUpSecretKey);
+        signature = new SecretKeySpec(keyByte, SignatureAlgorithm.HS256.getJcaName());
+    }
 }
