@@ -1,4 +1,4 @@
-package api.service.MemberService.dto;
+package api.service.MemberService.dto.signup;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package api.service.MemberService.service;
 
-import api.service.MemberService.dto.LoginRequestDto;
-import api.service.MemberService.dto.LoginResponseDto;
+import api.service.MemberService.dto.login.LoginRequestDto;
+import api.service.MemberService.dto.login.LoginResponseDto;
 import api.service.MemberService.entity.RefreshToken;
 import api.service.MemberService.repository.RefreshTokenRepository;
 import io.jsonwebtoken.Jwts;

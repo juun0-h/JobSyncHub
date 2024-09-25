@@ -1,6 +1,6 @@
 package api.service.MemberService.service;
 
-import api.service.MemberService.dto.SignUpRequestDto;
+import api.service.MemberService.dto.signup.SignUpRequestDto;
 import api.service.MemberService.entity.Member;
 import api.service.MemberService.entity.Role;
 import api.service.MemberService.repository.MemberRepository;

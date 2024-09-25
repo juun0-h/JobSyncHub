@@ -1,6 +1,6 @@
 package api.service.MemberService.service;
 
-import api.service.MemberService.dto.MemberDto;
+import api.service.MemberService.dto.member.MemberDto;
 import api.service.MemberService.entity.Member;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

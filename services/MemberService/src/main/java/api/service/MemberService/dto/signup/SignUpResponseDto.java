@@ -1,4 +1,4 @@
-package api.service.MemberService.dto;
+package api.service.MemberService.dto.signup;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponseDto {
+public class SignUpResponseDto {
 
     private int statusCode;
     private String message;
-    private String accessToken;
-    private MemberDto memberInfo;
 }

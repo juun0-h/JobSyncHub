@@ -1,7 +1,7 @@
 package api.service.MemberService.controller;
 
-import api.service.MemberService.dto.SignUpRequestDto;
-import api.service.MemberService.dto.SignUpResponseDto;
+import api.service.MemberService.dto.signup.SignUpRequestDto;
+import api.service.MemberService.dto.signup.SignUpResponseDto;
 import api.service.MemberService.entity.Member;
 import api.service.MemberService.service.SignService;
 import lombok.RequiredArgsConstructor;

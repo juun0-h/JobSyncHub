@@ -1,4 +1,4 @@
-package api.service.MemberService.dto;
+package api.service.MemberService.dto.tag;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

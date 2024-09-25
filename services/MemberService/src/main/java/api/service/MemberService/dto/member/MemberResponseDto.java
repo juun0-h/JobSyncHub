@@ -1,5 +1,6 @@
-package api.service.MemberService.dto;
+package api.service.MemberService.dto.member;
 
+import api.service.MemberService.dto.member.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,10 +8,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class SignUpResponseDto {
+@AllArgsConstructor
+public class MemberResponseDto {
 
     private int statusCode;
     private String message;
+    private MemberDto memberInfo;
 }

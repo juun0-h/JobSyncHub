@@ -1,7 +1,7 @@
 package api.service.MemberService.controller;
 
-import api.service.MemberService.dto.LoginRequestDto;
-import api.service.MemberService.dto.LoginResponseDto;
+import api.service.MemberService.dto.login.LoginRequestDto;
+import api.service.MemberService.dto.login.LoginResponseDto;
 import api.service.MemberService.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
