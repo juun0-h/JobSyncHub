@@ -2,14 +2,18 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: health_check
+          uri: no://op
+          predicates:
+            - Path=/health
         - id: pass_member_service
-          uri: http://localhost:8081
+          uri: ${MEMBER_SERVICE_URI}
           predicates:
             - Path=/no_auth/**
           filters:
             - StripPrefix=1
         - id: member_service
-          uri: http://localhost:8081
+          uri: ${MEMBER_SERVICE_URI}
           predicates:
             - Path=/member/**
           filters:
@@ -20,7 +24,7 @@ spring:
                   - USER
                   - ADMIN
         - id: email_service
-          uri: http://localhost:8082
+          uri: ${EMAIL_SERVICE_URI}
           predicates:
             - Path=/email/**
           filters:
@@ -31,7 +35,7 @@ spring:
                   - USER
                   - ADMIN
         - id: pass_email_service
-          uri: http://localhost:8082
+          uri: ${EMAIL_SERVICE_URI}
           predicates:
             - Path=/email_auth/**
           filters:
