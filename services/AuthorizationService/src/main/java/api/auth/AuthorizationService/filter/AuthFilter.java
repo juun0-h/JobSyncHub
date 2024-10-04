@@ -73,6 +73,18 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     @Override
     public GatewayFilter apply(AuthFilter.Config config) {
         return ((exchange, chain) -> {
+            // Load Balancer Health Check
+            String path = exchange.getRequest().getURI().getPath();
+
+            if (path.equals("/health")) {
+                exchange.getResponse().setStatusCode(HttpStatus.OK);
+                return exchange.getResponse().writeWith(
+                        Mono.just(exchange.getResponse()
+                                .bufferFactory()
+                                .wrap("OK".getBytes()))
+                );
+            }
+
             String authorization = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
             // 토큰 값이 없거나 Bearer로 시작하지 않으면 null 반환
