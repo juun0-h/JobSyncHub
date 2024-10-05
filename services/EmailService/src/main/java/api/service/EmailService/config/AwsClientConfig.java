@@ -21,7 +21,6 @@ public class AwsClientConfig {
     public SesClient sesClient() {
         return SesClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create("ses-profile"))
                 .build();
     }
 
@@ -34,7 +33,6 @@ public class AwsClientConfig {
     public DynamoDbClient dynamoDbClient() {
         return DynamoDbClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create("dynamodb-profile"))
                 .build();
     }
 }
