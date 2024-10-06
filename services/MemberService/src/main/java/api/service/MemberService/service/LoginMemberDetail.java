@@ -32,6 +32,7 @@ public class LoginMemberDetail extends User {
                 .email(member.getEmail())
                 .name(member.getName())
                 .created(member.getCreated())
+                .subscribed(member.getSubscribed())
                 .build();
     }
 }

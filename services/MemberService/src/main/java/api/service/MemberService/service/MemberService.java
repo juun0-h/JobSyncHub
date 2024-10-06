@@ -43,6 +43,7 @@ public class MemberService {
                             .id(tag.getId())
                             .name(tag.getName())
                             .build()).toList())
+                    .subscribed(member.getSubscribed())
                     .build();
 
         }).orElseThrow(() -> new IllegalArgumentException("user not found"));
