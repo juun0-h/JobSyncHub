@@ -18,4 +18,12 @@ public class DynamoDbRepository {
     public QueryResponse getItem(QueryRequest queryRequest){
         return dynamoDbClient.query(queryRequest);
     }
+
+    public ScanResponse scan(ScanRequest scanRequest) {
+        return dynamoDbClient.scan(scanRequest);
+    }
+
+    public DeleteItemResponse deleteItem(DeleteItemRequest deleteItemRequest) {
+        return dynamoDbClient.deleteItem(deleteItemRequest);
+    }
 }
