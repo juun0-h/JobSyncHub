@@ -26,7 +26,7 @@ public class EmailAuthService {
 
     @Value("${aws.ses.sender}")
     private String sender;
-    @Value("${aws.dynamodb.table_1}")
+    @Value("${aws.dynamodb.token.table}")
     private String codeTable;
 
     private final SesClient sesClient;

@@ -1,7 +1,7 @@
 package api.service.EmailService.controller;
 
-import api.service.EmailService.dto.VerifyRequestDto;
-import api.service.EmailService.dto.VerifyResponseDto;
+import api.service.EmailService.dto.verify.VerifyRequestDto;
+import api.service.EmailService.dto.verify.VerifyResponseDto;
 import api.service.EmailService.service.EmailAuthService;
 import api.service.EmailService.service.SignUpTokenService;
 import lombok.RequiredArgsConstructor;

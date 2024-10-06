@@ -1,4 +1,4 @@
-package api.service.EmailService.dto;
+package api.service.EmailService.dto.subscribe;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VerifyResponseDto {
+public class SubResponseDto {
 
     private int statusCode;
     private String message;
-    private String token;
+    private Boolean subscribed;
 }
