@@ -1,5 +1,6 @@
 package api.service.MemberService.controller;
 
+import api.service.MemberService.dto.member.ChangePasswordDto;
 import api.service.MemberService.dto.member.MemberDto;
 import api.service.MemberService.dto.member.MemberRequestDto;
 import api.service.MemberService.dto.member.MemberResponseDto;
@@ -54,13 +55,12 @@ public class MemberController {
      * 비밀번호를 변경하는 메서드이다.
      * 클라이언트로부터 전달받은 이메일과 비밀번호를 통해 비밀번호를 변경한다.
      *
-     * @param email 비밀번호를 변경할 회원의 이메일
-     * @param password 변경할 비밀번호
+     * @param changePasswordDto 비밀번호 변경을 위한 이메일과 비밀번호
      * @return 비밀번호 변경 결과를 담은 응답 DTO와 HTTP 200 상태 코드 반환
      */
     @PutMapping("/changePassword")
-    public ResponseEntity<MemberResponseDto> changePassword(@RequestParam String email, @RequestParam String password) {
-        memberService.changePassword(email, password);
+    public ResponseEntity<MemberResponseDto> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        memberService.changePassword(changePasswordDto.getEmail(), changePasswordDto.getPassword());
         return new ResponseEntity<>(MemberResponseDto.builder()
                 .statusCode(HttpStatus.OK.value())
                 .message("success update password").build(),
