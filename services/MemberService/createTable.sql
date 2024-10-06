@@ -6,6 +6,7 @@ create table member (
     name varchar(100) not null,
     created timestamp default current_timestamp,
     updated timestamp default current_timestamp,
+    subscribed boolean default false,
     role varchar(20) not null
 );
 

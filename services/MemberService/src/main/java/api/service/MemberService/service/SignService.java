@@ -32,7 +32,6 @@ public class SignService {
     @Value("${jwt.signup.secret-key}")
     private String signUpSecretKey;
     private Key signature;
-    private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -60,6 +59,7 @@ public class SignService {
                 .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
                 .name(signUpRequestDto.getName())
                 .role(Role.USER)    // 기본 권한은 USER
+                .subscribed(false)  // 기본 구독 상태는 false
                 .build();
         // 회원 정보 저장 및 반환
         return memberRepository.save(member);

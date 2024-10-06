@@ -20,4 +20,5 @@ public class MemberDto {
     private String name;
     private Timestamp created;
     private List<TagDto> tags;
+    private Boolean subscribed;
 }

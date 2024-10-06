@@ -57,6 +57,10 @@ public class Member {
     @Column(name="updated")
     private Timestamp updated;
 
+    @Comment("구독 여부")
+    @Column(name="subscribed")
+    private Boolean subscribed;
+
     @Enumerated(EnumType.STRING)
     @Column(name="role", nullable = false)
     private Role role;

@@ -61,6 +61,7 @@ public class MemberService {
         member.setEmail(memberRequestDto.getEmail());
         member.setName(memberRequestDto.getName());
         member.setUpdated(Timestamp.valueOf(LocalDateTime.now()));
+        member.setSubscribed(memberRequestDto.getSubscribed());
 
         List<Tag> tags = member.getTags();
         tags.clear();

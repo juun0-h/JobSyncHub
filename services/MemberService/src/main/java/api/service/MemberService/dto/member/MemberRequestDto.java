@@ -17,4 +17,5 @@ public class MemberRequestDto {
     private String email;
     private String name;
     private List<TagDto> tags;
+    private Boolean subscribed;
 }
