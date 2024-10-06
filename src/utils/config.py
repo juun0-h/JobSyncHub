@@ -61,7 +61,7 @@ class Config:
     JUMPITCONNECTOR_URL = 'https://www.jumpit.co.kr/positions?sort=reg_dt'
     JUMPITCONNECTOR_JOB_LINKS_HTML = (By.CSS_SELECTOR, 'section.sc-ac9b42ce-0.etGTSP div.sc-d609d44f-0.grDLmW > a')
 
-    JUMPITCONNECTOR_TITLE_HTML = (By.CSS_SELECTOR, 'div.sc-f491c6ef-0.egBfVn > h1')
+    JUMPITCONNECTOR_TITLE_HTML = (By.CSS_SELECTOR, 'div.sc-7cfe5b21-0.gdXhyw > h1')
     JUMPITCONNECTOR_COMPANY_HTML = (By.CSS_SELECTOR, 'a[href*="/company/"] span')
     JUMPITCONNECTOR_LOCATION_HTML = (By.XPATH, "//dt[contains(text(),'근무지역')]/following-sibling::dd//li")
     JUMPITCONNECTOR_DEADLINE_HTML = (By.XPATH, "//dt[contains(text(),'마감일')]/following-sibling::dd")
