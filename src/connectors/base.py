@@ -5,7 +5,7 @@ import re
 
 class BaseConnector(ABC):
     @abstractmethod
-    def fetch_data_and_integrate_date_format(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> dict[Any, Any]:
         """
         API에서 header 및 data를 가져오고 날짜 형식 변환 (YYYY-MM-DD)
         

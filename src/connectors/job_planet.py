@@ -16,7 +16,7 @@ class JobPlanetConnector(BaseConnector):
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.job_links = list()     # 공고 별 링크 리스트
-        self.job_data = list()      # 수집한 데이터를 저장할 리스트
+        self.job_data = dict()      # 수집한 데이터를 저장할 딕셔너리
 
         self.target_url = Config.JOBPLANETCONNECTOR_URL                     # 크롤링 할 URL
         self.job_links_html = Config.JOBPLANETCONNECTOR_GET_LINKS_HTML      # 공고 리스트
@@ -35,7 +35,7 @@ class JobPlanetConnector(BaseConnector):
         self.experience_html = Config.JOBPLANETCONNECTOR_EXPERIENCE_HTML    # 경력 사항
         self.skills_html = Config.JOBPLANETCONNECTOR_SKILLS_HTML        # 기술 스택
 
-    def fetch_data_and_integrate_date_format(self) -> List[Dict[str, Any]]:
+    def fetch_data_and_integrate_date_format(self) -> dict[Any, Any]:
         cnt = 0
         self.job_links = [job.get_attribute('href') for job in self.driver.find_elements(self.job_links_html[0], self.job_links_html[1])]
 
@@ -104,8 +104,8 @@ class JobPlanetConnector(BaseConnector):
                     job_info['skills'] = []
                     print(f"[JobPlanet] skills 필드 추출 실패: {job_link}")
 
-                # 데이터를 리스트에 추가
-                self.job_data.append(job_info)
+                # 데이터를 딕셔너리에 추가
+                self.job_data[cnt] = job_info
                 print(job_info)
 
                 time.sleep(random.randint(2, 3))
