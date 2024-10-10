@@ -184,8 +184,9 @@ class JobPlanetConnector(BaseConnector):
         except TimeoutException:
             print("최신순 정렬 옵션 탐색 실패")
 
-        # 필터 적용 후 대기
+        # 필터 적용 후 페이지 스크롤 다운
         time.sleep(2)
+        self.scroll_to_bottom()
 
     def close_modal(self) -> None:
         """
@@ -206,8 +207,6 @@ class JobPlanetConnector(BaseConnector):
             # iframe에서 기존 컨텐츠로 다시 전환
             self.driver.switch_to.default_content()
             time.sleep(1)
-
-            self.scroll_to_bottom()
 
         except TimeoutException:
             print("모달 탐색 실패")
