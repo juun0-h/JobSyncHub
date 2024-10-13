@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MemberDto {
 
-    private Long id;
+    private Integer id;
     private String email;
     private String name;
     private Timestamp created;

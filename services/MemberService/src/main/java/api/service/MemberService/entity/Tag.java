@@ -24,7 +24,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("태그 고유 번호")
     @Column(name="id")
-    private Long id;
+    private Integer id;
 
     @Comment("태그 이름")
     @Column(name="name")

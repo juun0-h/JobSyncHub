@@ -46,6 +46,9 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// log
+	implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
+
 	// netty dns resolver
 	// MacOS에서 Netty는 시스템 DNS 서버 주소를 가져오기 위해 netty-resolver-dns-native-macos라는 네이티브 라이브러리를 사용하려고 시도함.
 	// 하지만 이 라이브러리가 로드되지 않으면, Netty는 시스템 기본 DNS 설정을 사용하려고 하며, 이 과정에서 경고 메시지가 출력됨
