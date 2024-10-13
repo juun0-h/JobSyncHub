@@ -40,3 +40,31 @@ spring:
             - Path=/email_auth/**
           filters:
             - StripPrefix=1
+        - id: search_service
+          uri: ${SEARCH_SERVICE_URI}
+          predicates:
+            - Path=/search/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+              - Accept
+              - Origin
+            allowCredentials: true
