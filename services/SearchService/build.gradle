@@ -40,6 +40,9 @@ dependencies {
 
 	// apache
 	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
+	// log
+	implementation 'net.logstash.logback:logstash-logback-encoder:7.2'
 }
 
 tasks.named('test') {
