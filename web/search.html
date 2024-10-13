@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>채용공고 검색</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">JobSyncHub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
+        <li class="nav-item"><a class="nav-link active" href="search.html">채용공고 검색</a></li>
+        <li class="nav-item"><a class="nav-link" href="subscribe.html">구독 신청</a></li>
+        <li class="nav-item"><a class="nav-link" href="mypage.html">마이페이지</a></li>
+        <li class="nav-item" id="user-info" style="display: none;">
+          <span class="nav-link">안녕하세요, <span id="user-name"></span>님</span>
+          <button id="logout-btn" class="btn btn-outline-secondary btn-sm">로그아웃</button>
+        </li>
+        <li class="nav-item">
+          <button id="login-btn" class="btn btn-outline-primary btn-sm">로그인</button>
+          <button id="signup-btn" class="btn btn-primary btn-sm">회원가입</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container mt-4">
+  <h1>채용공고 검색</h1>
+
+  <form id="search-form">
+    <div class="mb-3">
+      <label for="search-title" class="form-label">채용공고 제목:</label>
+      <input type="text" id="search-title" class="form-control" placeholder="채용공고 제목 검색">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">기술 스택 선택:</label>
+      <div>
+        <button type="button" id="tech-stack-button" class="btn btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
+          기술 스택 선택
+        </button>
+        <ul id="tech-stack-menu" class="dropdown-menu">
+          <li><input type="checkbox" value="Java" class="form-check-input me-1"> Java</li>
+          <li><input type="checkbox" value="Python" class="form-check-input me-1"> Python</li>
+          <li><input type="checkbox" value="JavaScript" class="form-check-input me-1"> JavaScript</li>
+          <li><input type="checkbox" value="React" class="form-check-input me-1"> React</li>
+          <!-- 필요한 기술 스택을 추가 -->
+        </ul>
+      </div>
+      <div id="selected-skills" class="mt-2"></div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-sm-6">
+        <label for="search-experience" class="form-label">경력사항 선택:</label>
+        <select id="search-experience" class="form-select form-select-sm">
+          <option value="" selected>전체</option>
+          <option value="신입">신입</option>
+          <option value="경력">경력</option>
+          <option value="무관">무관</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <label for="search-sort" class="form-label">마감일 정렬:</label>
+        <select id="search-sort" class="form-select form-select-sm">
+          <option value="" selected>전체</option>
+          <option value="1">마감일 오름차순</option>
+          <option value="-1">마감일 내림차순</option>
+          <option value="0">상시채용만</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">검색</button>
+      <button type="button" id="reset-button" class="btn btn-secondary">초기화</button>
+    </div>
+  </form>
+
+  <div id="job-listings" class="mt-4"></div>
+
+  <button id="load-more-btn" class="btn btn-outline-primary mt-4" style="display: none;">더보기</button>
+</main>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

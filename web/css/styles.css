@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+header nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+header nav ul li {
+  margin-right: 20px;
+}
+
+#auth-buttons button, #user-info button {
+  margin-left: 10px;
+}
+
+main img {
+  width: 100%;
+  height: auto;
+}
+
+.job-listing {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* 드롭다운 메뉴 스타일 수정 */
+#tech-stack-menu {
+  position: absolute;
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#tech-stack-menu.show {
+  display: block;
+}
+
+/* 선택된 기술 스택 태그 스타일 */
+#selected-skills .badge {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#selected-skills .btn-close {
+  margin-left: 5px;
+}
