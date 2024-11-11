@@ -1,1 +1,15 @@
 venv
+.env
+tests/
+src/utils/__pycache__
+src/connectors/__pycache__
+*.py[cod]
+*$py.class
+.idea
+.DS_Store
+
+src/connectors/seoul_job_portal.py
+src/connectors/ggjobaba.py
+src/connectors/public_institution.py
+test_run_data_collection.py
+test_api_connectors.py

@@ -1,0 +1,7 @@
+# .dockerignore
+
+.git
+node_modules
+Dockerfile
+nginx.conf
+*.md

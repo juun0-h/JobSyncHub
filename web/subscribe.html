@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>구독하기</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">JobSyncHub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
+        <li class="nav-item"><a class="nav-link active" href="search.html">채용공고 검색</a></li>
+        <li class="nav-item"><a class="nav-link" href="subscribe.html">구독 신청</a></li>
+        <li class="nav-item"><a class="nav-link" href="mypage.html">마이페이지</a></li>
+        <li class="nav-item" id="user-info" style="display: none;">
+          <span class="nav-link">안녕하세요, <span id="user-name"></span>님</span>
+          <button id="logout-btn" class="btn btn-outline-secondary btn-sm">로그아웃</button>
+        </li>
+        <li class="nav-item">
+          <button id="login-btn" class="btn btn-outline-primary btn-sm">로그인</button>
+          <button id="signup-btn" class="btn btn-primary btn-sm">회원가입</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container mt-4">
+  <h1>기술 스택 구독</h1>
+  <form id="subscribe-form" class="row g-3">
+    <div class="col-md-6">
+      <label for="subscribe-skills" class="form-label">원하는 기술 스택을 선택하세요:</label>
+      <select id="subscribe-skills" class="form-select" multiple>
+        <option value="Java">Java</option>
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="React">React</option>
+        <!-- 필요한 기술 스택을 추가 -->
+      </select>
+      <div id="subscribe-selected-skills" class="mt-2"></div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">구독 신청</button>
+      <button type="button" id="subscribe-reset-button" class="btn btn-secondary">초기화</button>
+    </div>
+  </form>
+</main>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

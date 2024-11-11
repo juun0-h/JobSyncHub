@@ -1,0 +1,70 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: health_check
+          uri: no://op
+          predicates:
+            - Path=/health
+        - id: pass_member_service
+          uri: ${MEMBER_SERVICE_URI}
+          predicates:
+            - Path=/no_auth/**
+          filters:
+            - StripPrefix=1
+        - id: member_service
+          uri: ${MEMBER_SERVICE_URI}
+          predicates:
+            - Path=/member/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
+        - id: email_service
+          uri: ${EMAIL_SERVICE_URI}
+          predicates:
+            - Path=/email/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
+        - id: pass_email_service
+          uri: ${EMAIL_SERVICE_URI}
+          predicates:
+            - Path=/email_auth/**
+          filters:
+            - StripPrefix=1
+        - id: search_service
+          uri: ${SEARCH_SERVICE_URI}
+          predicates:
+            - Path=/search/**
+          filters:
+            - StripPrefix=1
+            - name: AuthFilter
+              args:
+                allowedRoles:
+                  - USER
+                  - ADMIN
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+              - Accept
+              - Origin
+            allowCredentials: true
